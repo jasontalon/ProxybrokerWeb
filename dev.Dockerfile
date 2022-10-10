@@ -19,14 +19,16 @@ RUN \
 
 ENV DOTNET_USE_POLLING_FILE_WATCHER=1 \
     DOTNET_WATCH_SUPPRESS_EMOJIS=1 \
-    DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER=1
+    DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER=1 \
+    DOTNET_CLI_TELEMETRY_OPTOUT=1 \
+    DOTNET_GENERATE_ASPNET_CERTIFICATE=false \
+    ASPNETCORE_URLS=http://+:8080 \
+    ASPNETCORE_ENVIRONMENT=Development
     
 WORKDIR /app
     
 EXPOSE 8080
 
-CMD ["nodemon", "--delay", "2500ms", "--watch", "ProxybrokerWeb/bin/Debug/net6.0/", "--legacy-watch", "--exec", "dotnet" ,"ProxybrokerWeb/bin/Debug/net6.0/ProxybrokerWeb.dll"]
-#CMD ["bash"]    
-#CMD ["dotnet", "watch", "--no-hot-reload", "run", "--project","ProxybrokerWeb"]
-
-        
+CMD ["nodemon", "--delay", "2500ms", "--watch", "ProxybrokerWeb/bin/Debug/net6.0/", "--legacy-watch",
+    "--exec", 
+    "dotnet", "run", "--configuration", "Debug", "--no-launch-profile", "--no-build", "--project", "ProxybrokerWeb"]
