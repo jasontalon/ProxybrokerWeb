@@ -17,9 +17,7 @@ RUN \
     && poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi --no-dev 
 
-ENV DOTNET_USE_POLLING_FILE_WATCHER=1 \
-    DOTNET_WATCH_SUPPRESS_EMOJIS=1 \
-    DOTNET_WATCH_SUPPRESS_LAUNCH_BROWSER=1 \
+ENV \
     DOTNET_CLI_TELEMETRY_OPTOUT=1 \
     DOTNET_GENERATE_ASPNET_CERTIFICATE=false \
     ASPNETCORE_URLS=http://+:8080 \
