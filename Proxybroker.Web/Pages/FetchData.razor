@@ -1,0 +1,37 @@
+﻿@page "/fetch"
+@using Proxybroker.ViewModels
+
+@inject IFetchViewModel _ViewModel;
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        _ViewModel.PropertyChanged += (_, _) => StateHasChanged();
+    }
+
+    private async Task FindAsync()
+    {
+        var cts = new CancellationTokenSource(TimeSpan.FromMinutes(1));
+
+        try
+        {
+            Loading = true;
+            await _ViewModel.FindAsync(OnProxyReceived, cts.Token);
+        }
+        finally
+        {
+            Loading = false;
+        }
+    }
+
+    private void OnProxyReceived(string s)
+    {
+    }
+
+    public bool Loading { get; set; }
+}
+
+<div>
+    <button @onclick="FindAsync">Search</button>
+</div>
